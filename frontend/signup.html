@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sign Up - Stock Trend Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="login.js" defer></script>
+</head>
+<body>
+    <div class="login-animated-bg" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="auth-container">
+        <h2>🪙 The Midas Engine 📈</h2>
+        <div class="auth-form">
+            <input id="signup-username" placeholder="Username" />
+            <input id="signup-password" placeholder="Password" type="password" />
+            <button id="btn_signup">Sign Up</button>
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+    </div>
+
+    <script>
+        const base = window.location.origin;
+
+        async function signup() {
+            const username = document.getElementById("signup-username").value.trim();
+            const password = document.getElementById("signup-password").value.trim();
+            if (!username || !password) {
+                alert("Enter both username and password");
+                return;
+            }
+            try {
+                const res = await fetch(`${base}/api/auth/signup`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert("Signup successful! Redirecting to login...");
+                    window.location.href = "login.html";
+                } else {
+                    alert(data.message || "Signup failed");
+                }
+            } catch (err) {
+                console.error("Signup error:", err);
+                alert("Error during signup: " + err.message);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("btn_signup").addEventListener("click", signup);
+        });
+    </script>
+</body>
+</html>

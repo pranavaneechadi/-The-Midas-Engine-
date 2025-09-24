@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Choose Page</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('token');
+      if (!token) { window.location.href = 'login.html'; return; }
+      document.getElementById('go-dashboard').addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+      document.getElementById('go-trade').addEventListener('click', () => {
+        window.location.href = 'tradingview.html';
+      });
+      document.getElementById('btn_logout')?.addEventListener('click', () => {
+        localStorage.clear(); window.location.href = 'login.html';
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="login-animated-bg" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div id="app">
+    <header>
+      <h1>🪙 The Midas Engine 📈</h1>
+      <button id="btn_logout">Logout</button>
+    </header>
+
+    <section class="slider" style="text-align:center;">
+      <h3>Where would you like to go?</h3>
+      <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:10px;">
+        <button id="go-dashboard" style="max-width:220px;">Open Dashboard</button>
+        <button id="go-trade" style="max-width:220px;">Open TradingView</button>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+
+

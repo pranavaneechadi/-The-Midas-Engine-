@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login - Stock Trend Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="login.js" defer></script>
+</head>
+<body>
+    <div class="login-animated-bg" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="auth-container">
+        <h2>🪙 The Midas Engine 📈</h2>
+        <div class="auth-form">
+            <input id="login-username" placeholder="Username" />
+            <input id="login-password" placeholder="Password" type="password" />
+            <button id="btn_login">Login</button>
+            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </div>
+    </div>
+
+    <script>
+        const base = window.location.origin;
+
+        async function login() {
+            const username = document.getElementById("login-username").value.trim();
+            const password = document.getElementById("login-password").value.trim();
+            if (!username || !password) {
+                alert("Enter both username and password");
+                return;
+            }
+            try {
+                const res = await fetch(`${base}/api/auth/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+                if (res.ok && data.token) {
+                    localStorage.setItem("token", data.token);
+                    localStorage.setItem("username", username);
+                    window.location.href = "choose.html";
+                } else {
+                    alert(data.msg || "Login failed");
+                }
+            } catch (err) {
+                console.error("Login error:", err);
+                alert("Error during login: " + err.message);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("btn_login").addEventListener("click", login);
+        });
+    </script>
+</body>
+</html>

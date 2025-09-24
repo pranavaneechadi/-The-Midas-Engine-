@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stock Trend Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Chart.js core -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@4/dist/chartjs-chart-financial.min.js"></script>
+
+  <!-- App logic (load last so plugin is registered before use) -->
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="login-animated-bg" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div id="app">
+    <header>
+      <h1>🪙 The Midas Engine 📈</h1>
+      <button id="btn_logout">Logout</button>
+    </header>
+
+    <!-- Search -->
+    <section id="search-section">
+      <input id="search-input" placeholder="Enter stock symbol (e.g. AAPL)" />
+      <button id="btn_search">Search</button>
+      <ul id="search-results" class="stock-list"></ul>
+    </section>
+
+    <!-- Top & Worst -->
+    <section id="top-slider">
+      <h3>Top Performers</h3>
+      <ul id="top-performers" class="stock-list"></ul>
+      <h3>Worst Performers</h3>
+      <ul id="worst-performers" class="stock-list"></ul>
+    </section>
+
+    <!-- Watchlist -->
+    <section id="watchlist-section">
+      <h3>Your Watchlist</h3>
+      <ul id="watchlist" class="stock-list"></ul>
+    </section>
+
+    <!-- Chart Section -->
+    <section id="chart-section">
+      <div id="chart-controls" style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px;align-items:center;">
+        <span>Price:</span>
+        <label><input type="radio" name="priceType" id="priceType-candles" checked> Candles</label>
+        <label><input type="radio" name="priceType" id="priceType-line"> Line</label>
+        <span>Indicators:</span>
+        <label><input type="checkbox" id="ind-sma" checked> SMA</label>
+        <label><input type="checkbox" id="ind-ema"> EMA</label>
+        <label><input type="checkbox" id="ind-boll-upper"> Boll Upper</label>
+        <label><input type="checkbox" id="ind-boll-lower"> Boll Lower</label>
+        <label><input type="checkbox" id="ind-rsi" checked> RSI</label>
+        <label><input type="checkbox" id="ind-macd" checked> MACD</label>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <canvas id="priceChart" height="320"></canvas>
+        <canvas id="rsiChart" height="140"></canvas>
+        <canvas id="macdChart" height="160"></canvas>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('btn_search').addEventListener('click', () => {
+        const symbol = document.getElementById('search-input').value.trim();
+        if (symbol) searchStock(symbol.toUpperCase());
+      });
+    });
+  </script>
+</body>
+</html>
