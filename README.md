@@ -1,4 +1,4 @@
-#The Midas Engine 🪙📈
+# The Midas Engine 🪙📈
 A modern stock analysis app with a premium animated UI. Explore top/worst performers, manage a watchlist, and visualize prices with SMA/EMA, RSI, MACD, and Bollinger Bands. Includes a TradingView-powered page for deep charting.
 
 Highlights
