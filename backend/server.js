@@ -165,9 +165,9 @@ app.post("/api/watchlist/dynamic", auth, async (req, res) => {
 const STOCKS_TO_TRACK = [
   'RELIANCE.BSE', 'TCS.BSE', 'HDFCBANK.BSE', 'INFY.BSE',
   'ICICIBANK.BSE', 'ITC.BSE', 'HINDUNILVR.BSE', 'SBIN.BSE',
-  'BHARTIARTL.BSE', 'KOTAKBANK.BSE', 'AAPL', 'MSFT', 'GOOGL'
-];
-
+  'BHARTIARTL.BSE', 'KOTAKBANK.BSE', 'AAPL', 'MSFT', 'GOOGL',
+  'Colgate-Palmoliv','	P & G Hygiene','	Nestle India','	Gillette India',
+]
 async function safeQuoteAlpha(symbol) {
   try {
     const cacheKey = `quote:${symbol}`;
